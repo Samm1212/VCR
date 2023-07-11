@@ -9,23 +9,26 @@
     </head>
 
     <body>
-        <div class="container-fluid">
+        <div class="container-fluid border border-dark d-flex justify-content-center pt-4" style="width: fit-content;">
+            <div style="width: 200px;">
             <form action="login.php" method="post">
                 <h2>LOGIN</h2>
                 <?php if(isset($_GET['error'])) { ?>
                     <p class="error"> <?php echo $_GET['error']; ?></p>
                 <?php } ?>
-                <label>Code</label>
-                <input type="number" name="code" placeholder="Code"><br>
+                <label>Username</label>
+                <input type="text" name="username" placeholder="Enter your username"><br><br>
                 <label>Password</label>
-                <input type="password" name="password" placeholder="Password"><br>
-                <input type="radio" id="member" name="role" value="member" checked="true">
-                <lable for="member">Member</lable>
+                <input type="password" name="password" placeholder="Enter your password"><br><br>
+                <input type="radio" id="student" name="role" value="student" checked="true">
+                <lable for="member">Student</lable><br>
                 <input type="radio" id="admin" name="role" value="admin">
                 <label for="admin">Admin</label><br>
-
+                <div class="d-flex justify-content-center align-items-center pt-3 pb-4">
                 <button type="submit" value="Submit">Login</button>
+                </div>
             </form>
+            </div>
         </div>
     </body>
 </html>
