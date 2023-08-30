@@ -26,17 +26,35 @@ if (isset($_SESSION['username'])) { ?>
             </ul>
         </div>
     </nav>
-    <div id="chat-app">
+    <div class="container-fluid" id="chat-app">
         <h1>Welcome to the Chat Room</h1>
 
         <!-- Room selection -->
-        <div>
+        <div class="container-fluid pt-2">
             <label for="room">Select a Room:</label>
             <select id="room" name="room"></select>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    console.log("Script started");
+                    fetch('../backend/api.php')
+                        .then(response => response.json())
+                        .then(rooms => {
+                            const selectElement = document.getElementById('room');
+                            rooms.forEach(room => {
+                                const option = document.createElement('option');
+                                option.value = room.id;
+                                option.text = room.rName;
+                                selectElement.appendChild(option);
+                            });
+                        })
+                        .catch(error => console.error('Error fetching rooms:', error));
+                });
+            </script>
+
         </div>
 
         <!-- Chat messages display -->
-        <div id="chat-messages"></div>
+        <div class="container-fluid pt-2" id="chat-messages"></div>
 
         <!-- Message input and send button -->
         <form id="message-form">

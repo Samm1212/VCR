@@ -4,6 +4,8 @@ const socketIO = require('socket.io');
 const mysql = require('mysql');
 const cors = require('cors');
 
+const users = {};
+
 const app = express();
 app.use(cors()); 
 
@@ -31,6 +33,7 @@ io.on('connection', (socket) => {
     console.log('A user connected');
 
     socket.on('joinRoom', (roomID, username) => {
+        users[socket.id] = { username, roomID };
         socket.join(roomID);
         socket.emit('message', {
             user: 'admin',
