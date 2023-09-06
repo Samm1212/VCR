@@ -16,10 +16,6 @@ function getRooms() {
     return $rooms;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $rooms = getRooms();
-    echo json_encode($rooms);
-}
 
 if (isset($_GET['roomName'])) {
     $roomName = $_GET['roomName'];
@@ -32,12 +28,15 @@ if (isset($_GET['roomName'])) {
             $messages[] = $row;
         }
 
-        var_dump($messages);
+        //var_dump($messages);
 
         header('Content-type: application/json');
         echo json_encode($messages);
     } else {
         echo json_encode(['error' => 'falied to fetch messages']);
     }
+} else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $rooms = getRooms();
+    echo json_encode($rooms);
 }
 ?>

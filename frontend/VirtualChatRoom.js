@@ -61,9 +61,12 @@ messageForm.addEventListener('submit', (event) => {
 selectElement.addEventListener('change', (event) => {
     const selectedRoomName = event.target.value;
     updateChatMessages(selectedRoomName);
+    socket.emit('joinRoom', selectedRoomName, un);
+    console.log("emmited joinRoom ", selectedRoomName, un, " num");
 });
 
 function updateChatMessages(roomName) {
+
     chatMessages.innerHTML = '';
     fetch(`../backend/api.php?roomName=${encodeURIComponent(roomName)}`)
         .then(response => response.text())

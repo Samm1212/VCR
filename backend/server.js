@@ -24,6 +24,14 @@ const db = mysql.createConnection({
     database: 'vcr'
 });
 
+const pool = mysql.createPool({
+    connectionLimit: 50,
+    host: 'localhost',
+    user: 'root',
+    password: 'rootPass',
+    database: 'vcr'
+});
+
 db.connect((err) => {
     if (err) throw err;
     console.log('Connected to the MySQL database.');
@@ -32,15 +40,16 @@ db.connect((err) => {
 io.on('connection', (socket) => {
     console.log('A user connected');
 
-    socket.on('joinRoom', (roomID, username) => {
-        users[socket.id] = { username, roomID };
-        socket.join(roomID);
+    socket.on('joinRoom', (roomName, username) => {
+        console.log("socket.on joinRoom block start")
+        users[socket.id] = { username, roomName };
+        socket.join(roomName);
         socket.emit('message', {
             user: 'admin',
             text: `Welcome to the room, ${username}!`,
             timestamp: new Date().getTime(),
         });
-        socket.to(roomID).emit('message', {
+        socket.to(roomName).emit('message', {
             user: 'admin',
             text: `${username} has joined the room`,
             timestamp: new Date().getTime(),
@@ -49,14 +58,15 @@ io.on('connection', (socket) => {
 
     socket.on('sendMessage', async (message) => {
         try {
-            const { username, roomID } = users[socket.id];
+            console.log("Socket.on send message block start")
+            const { username, roomName } = users[socket.id];
             const timestamp = new Date().toISOString();
             await pool.query(
-                'INSERT INTO messages (rID, sender, dt, content) VALUES (?, ?, ?, ?)',
-                [roomID, username, timestamp, message]
+                'INSERT INTO messages (rName, sender, dt, content) VALUES (?, ?, ?, ?)',
+                [roomName, username, timestamp, message]
             );
 
-            io.to(roomID).emit('message', {
+            io.to(roomName).emit('message', {
                 user: username,
                 text: message,
                 timestamp: timestamp,
@@ -70,10 +80,10 @@ io.on('connection', (socket) => {
         console.log('A user disconnected');
 
         if (users[socket.id]) {
-            const { username, roomID } = users[socket.id];
+            const { username, roomName } = users[socket.id];
             delete users[socket.id];
 
-            io.to(roomID).emit('message', {
+            io.to(roomName).emit('message', {
                 user: 'admin',
                 text: `${username} has left the room`,
                 timestamp: new Date().getTime(),

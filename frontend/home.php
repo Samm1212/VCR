@@ -30,9 +30,9 @@ if (isset($_SESSION['username'])) { ?>
         <h1>Welcome to the Chat Room</h1>
 
         <!-- Room selection -->
-        <div class="container-fluid pt-2">
-            <label for="room">Select a Room:</label>
-            <select id="room" name="room"></select>
+        <div class="container-fluid pt-2 pb-2">
+            <label for="room" class="form-label">Select a Room:</label>
+            <select id="room" name="room" class="form-select"></select>
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
                     console.log("Script started");
@@ -42,7 +42,7 @@ if (isset($_SESSION['username'])) { ?>
                             const selectElement = document.getElementById('room');
                             rooms.forEach(room => {
                                 const option = document.createElement('option');
-                                option.value = room.id;
+                                option.value = room.rName;
                                 option.text = room.rName;
                                 selectElement.appendChild(option);
                             });
@@ -54,12 +54,14 @@ if (isset($_SESSION['username'])) { ?>
         </div>
 
         <!-- Chat messages display -->
-        <div class="container-fluid pt-2" id="chat-messages"></div>
+        <div class="container-fluid pt-2 border" id="chat-messages" style="height: 300px; overflow-y: auto;"></div>
 
         <!-- Message input and send button -->
         <form id="message-form">
-            <input type="text" id="message-input" name="message" required>
-            <button type="submit">Send</button>
+            <div class="input-group">
+                <input type="text" id="message-input" name="message" required>
+                <button type="submit">Send</button>
+            </div>
         </form>
     </div>
 
