@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db_connection.php';
+include '../backend/db_connection.php';
 
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -47,7 +47,7 @@ function checkFullname($fullname) {
 }
 
 function checkUsername($username) {
-    include 'db_connection.php';
+    include '../backend/db_connection.php';
     $sql = "select * from users where username = '$username';";
     $res = $conn->query($sql);
     $numRows = mysqli_num_rows($res);
@@ -60,7 +60,7 @@ function checkUsername($username) {
 }
 
 function checkRole($role) {
-    include 'db_connection.php';
+    include '../backend/db_connection.php';
     $check = true;
     if ($role == "admin") {
         $sql = "select * from users where role = 'admin';";

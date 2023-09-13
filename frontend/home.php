@@ -20,6 +20,20 @@ if (isset($_SESSION['username'])) { ?>
                 <li class="nav-item">
                     <a class="nav-link" href="home.php">Home</a>
                 </li>
+                <?php
+                if ($_SESSION['role'] == 'admin') {
+                    echo "<li class=\"nav-item\">
+                    <a class=\"nav-link\" href=\"createRoom.php\">Create Room</a>
+                </li>";
+                }
+                ?>
+                <?php
+                if ($_SESSION['role'] == 'admin') {
+                    echo "<li class=\"nav-item\">
+                    <a class=\"nav-link\" href=\"deleteRoom.php\">Delete Room</a>
+                </li>";
+                }
+                ?>
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php">Logout</a>
                 </li>
