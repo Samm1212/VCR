@@ -1,12 +1,17 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
+session_start();
 
 include 'db_connection.php';
 
+
 function getRooms() {
     include 'db_connection.php';
-    $sql = "select * from rooms";
+    $username = $conn->real_escape_string($_SESSION['username']);
+    include 'db_connection.php';
+    $sql = "select * from rooms where allowedUNs LIKE '%$username%';";
+    //$sql = "select * from rooms;";
     $result = $conn->query($sql);
 
     $rooms = array();

@@ -25,12 +25,11 @@ if (isset($_SESSION['username'])) { ?>
                     echo "<li class=\"nav-item\">
                     <a class=\"nav-link\" href=\"createRoom.php\">Create Room</a>
                 </li>";
-                }
-                ?>
-                <?php
-                if ($_SESSION['role'] == 'admin') {
                     echo "<li class=\"nav-item\">
                     <a class=\"nav-link\" href=\"deleteRoom.php\">Delete Room</a>
+                </li>";
+                    echo "<li class=\"nav-item\">
+                    <a class=\"nav-link\" href=\"manageAccesses.php\">Manage Accesses</a>
                 </li>";
                 }
                 ?>
@@ -46,7 +45,9 @@ if (isset($_SESSION['username'])) { ?>
         <!-- Room selection -->
         <div class="container-fluid pt-2 pb-2">
             <label for="room" class="form-label">Select a Room:</label>
-            <select id="room" name="room" class="form-select"></select>
+            <select id="room" name="room" class="form-select">
+                <option value="" selected disabled></option>
+            </select>
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
                     console.log("Script started");
@@ -67,11 +68,16 @@ if (isset($_SESSION['username'])) { ?>
 
         </div>
 
+        <div id="online-users" class="container m-4">
+            <h3>Online Users</h3>
+            <ul id="user-list" class="list-group"></ul>
+        </div>
+
         <!-- Chat messages display -->
         <div class="container-fluid pt-2 border" id="chat-messages" style="height: 300px; overflow-y: auto;"></div>
 
         <!-- Message input and send button -->
-        <form id="message-form">
+        <form class="form m-3" id="message-form">
             <div class="input-group">
                 <input type="text" id="message-input" name="message" required>
                 <button type="submit">Send</button>

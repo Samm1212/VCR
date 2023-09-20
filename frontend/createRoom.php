@@ -33,19 +33,19 @@ if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') { ?>
         </div>
     </nav>
     <div class="container-fluid border border-dark d-flex justify-content-center pt-4 pb-4" style="width: fit-content;">
-            <div style="width: 200px;">
-            <form action="create_room.php" method="post">
-                <h2>Create Room</h2>
-                <?php if(isset($_GET['error'])) { ?>
-                    <p class="error"> <?php echo $_GET['error']; ?></p>
-                <?php } ?>
-                <label for="name">Name:</label><br><br>
-                <input type="text" name="name" maxlength="20" id="name"><br><br>
-                <input type="submit" value="Create">
-                </div>
-            </form>
+        <div style="width: 200px;">
+        <form action="create_room.php" method="post">
+            <h2>Create Room</h2>
+            <?php if(isset($_GET['error'])) { ?>
+                <p class="error"> <?php echo $_GET['error']; ?></p>
+            <?php } ?>
+            <label for="name">Name:</label><br><br>
+            <input type="text" name="name" maxlength="20" id="name"><br><br>
+            <input type="submit" value="Create">
             </div>
+        </form>
         </div>
+    </div>
 </body>
 </html>
 <?php } else {

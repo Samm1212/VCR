@@ -41,7 +41,6 @@ io.on('connection', (socket) => {
     console.log('A user connected');
 
     socket.on('joinRoom', (roomName, username) => {
-        console.log("socket.on joinRoom block start")
         users[socket.id] = { username, roomName };
         socket.join(roomName);
         socket.emit('message', {
@@ -54,6 +53,14 @@ io.on('connection', (socket) => {
             text: `${username} has joined the room`,
             timestamp: new Date().getTime(),
         });
+        const updateRoomSQL = "update users set room = ? where username = ?";
+        db.query(updateRoomSQL, [roomName, username], (err, result) => {
+            if (err) {
+                console.error('Error updating user room:', err);
+            } else {
+                console.log(`User ${username} joined room ${roomName}`);
+            }
+        })
     });
 
     socket.on('sendMessage', async (message) => {
@@ -88,6 +95,14 @@ io.on('connection', (socket) => {
                 text: `${username} has left the room`,
                 timestamp: new Date().getTime(),
             });
+            const noRoomSQL = "update users set room = '0' where username = ?";
+            db.query(noRoomSQL, [username], (err, result) => {
+                if (err) {
+                    console.error('Error setting user room to 0:', err);
+                } else {
+                    console.log(`User ${username} left room ${roomName}`);
+                }
+            })
         }
     });
 });

@@ -61,8 +61,8 @@ messageForm.addEventListener('submit', (event) => {
 selectElement.addEventListener('change', (event) => {
     const selectedRoomName = event.target.value;
     updateChatMessages(selectedRoomName);
+    updateOnlineUsers(selectedRoomName);
     socket.emit('joinRoom', selectedRoomName, un);
-    console.log("emmited joinRoom ", selectedRoomName, un, " num");
 });
 
 function updateChatMessages(roomName) {
@@ -71,7 +71,6 @@ function updateChatMessages(roomName) {
     fetch(`../backend/api.php?roomName=${encodeURIComponent(roomName)}`)
         .then(response => response.text())
         .then(responseText => {
-            console.log('JSON Response:', responseText);
             const messages = JSON.parse(responseText);
             messages.forEach(message => {
                 appendMessageToChat(message);
@@ -82,8 +81,34 @@ function updateChatMessages(roomName) {
 
 function appendMessageToChat(message) {
     const messageElement = document.createElement('div');
-    console.log('Sender:', message.sender);
-    console.log('Content:', message.content);
     messageElement.innerHTML = `<strong>${message.sender}</strong>: ${message.content}`;
     chatMessages.appendChild(messageElement);
+}
+
+function updateOnlineUsers(roomName) {
+    fetch(`../backend/getOnlineUsers.php?roomName=${encodeURIComponent(roomName)}`)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then((onlineUsers) => {
+            if (!Array.isArray(onlineUsers)) {
+                console.error('Online users data is not an array:', onlineUsers);
+                return;
+            }
+            const userlist = document.getElementById('user-list');
+            userlist.innerHTML = '';
+
+            onlineUsers.forEach((user) => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item';
+                listItem.textContent = user;
+                userlist.appendChild(listItem);
+            });
+        })
+        .catch((error) => {
+            console.error('Error fetching online users:', error);
+        });
 }
