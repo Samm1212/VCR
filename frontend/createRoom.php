@@ -21,6 +21,9 @@ if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') { ?>
                     <a class="nav-link" href="home.php">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="search.php">Search</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="createRoom.php">Create Room</a>
                 </li>
                 <li class="nav-item">

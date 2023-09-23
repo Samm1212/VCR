@@ -20,6 +20,9 @@ if (isset($_SESSION['username'])) { ?>
                 <li class="nav-item">
                     <a class="nav-link" href="home.php">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="search.php">Search</a>
+                </li>
                 <?php
                 if ($_SESSION['role'] == 'admin') {
                     echo "<li class=\"nav-item\">
