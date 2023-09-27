@@ -10,7 +10,7 @@ if (isset($_SESSION['username'])) { ?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
+<body style="background-color: #89CFF0;">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container justify-content-center">
             <ul class="navbar-nav">
@@ -42,12 +42,12 @@ if (isset($_SESSION['username'])) { ?>
             </ul>
         </div>
     </nav>
-    <div class="container-fluid" id="chat-app">
-        <h1>Welcome to the Chat Room</h1>
+    <div class="container-fluid pt-2" id="chat-app" style="background-color: #89CFF0;">
+        <h1 style="width: fit-content; background-color:honeydew; padding: 0.3em;">Welcome to the Chat Room</h1>
 
         <!-- Room selection -->
         <div class="container-fluid pt-2 pb-2">
-            <label for="room" class="form-label">Select a Room:</label>
+            <label style="width: fit-content; background-color:honeydew; padding: 0.3em;" for="room" class="form-label">Select a Room:</label>
             <select id="room" name="room" class="form-select">
                 <option value="" selected disabled></option>
             </select>
@@ -72,15 +72,15 @@ if (isset($_SESSION['username'])) { ?>
         </div>
 
         <div id="online-users" class="container m-4">
-            <h3>Online Users</h3>
+            <h3 style="width: fit-content; background-color:honeydew; padding: 0.3em;">Online Users</h3>
             <ul id="user-list" class="list-group"></ul>
         </div>
 
         <!-- Chat messages display -->
-        <div class="container-fluid pt-2 border" id="chat-messages" style="height: 300px; overflow-y: auto;"></div>
+        <div class="container-fluid pt-2 border rounded border-2" id="chat-messages" style="height: 300px; overflow-y: auto;"></div>
 
         <!-- Message input and send button -->
-        <form class="form m-3" id="message-form">
+        <form class="form m-3 p-3" id="message-form">
             <div class="input-group">
                 <input type="text" id="message-input" name="message" required>
                 <button type="submit">Send</button>

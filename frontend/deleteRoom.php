@@ -11,7 +11,7 @@ if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') { ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
-<body>
+<body style="background-color: #89CFF0;">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container justify-content-center">
             <ul class="navbar-nav">
@@ -31,16 +31,21 @@ if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') { ?>
                     <a class="nav-link" href="deleteRoom.php">Delete Room</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="manageAccesses.php">Manage Accesses</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="logout.php">Logout</a>
                 </li>
             </ul>
         </div>
     </nav>
+
+    <div class="p-2"></div>
     
     <div class="container-fluid">
-        <h3>Room List</h3>
-        <table class="table">
-            <th>Room Name</th><th></th>
+        <h3 style="width: fit-content; background-color:honeydew; padding: 0.3em;">Room List</h3>
+        <table class="table border rounded border-2">
+            <th style="width: fit-content; background-color:honeydew; padding: 0.3em;">Room Name</th><th style="width: fit-content; background-color:honeydew; padding: 0.3em;">Action</th>
             <?php
             include '../backend/db_connection.php';
             $sql = "select * from rooms;";

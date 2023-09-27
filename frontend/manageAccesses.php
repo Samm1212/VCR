@@ -11,7 +11,7 @@ if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') { ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
-<body>
+<body style="background-color: #89CFF0;">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container justify-content-center">
             <ul class="navbar-nav">
@@ -39,10 +39,10 @@ if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') { ?>
             </ul>
         </div>
     </nav>
-    <div class="container-fluid">
-        <h3>Manage Accesses</h3>
-        <div class="container-fluid border border-dark d-flex justify-content-center pt-4 pb-4" style="width: fit-content;">
-        <div style="width: 200px;">
+    <div class="container-fluid pt-3">
+        <h3 style="width: fit-content; background-color:honeydew; padding: 0.3em;">Manage Accesses</h3>
+        <div  class="container-fluid border rounded border-dark d-flex justify-content-center pt-4 pb-4" style="width:fit-content; background-color:honeydew;">
+        <div style="width: 300px;">
         <form action="create_room.php" method="post">
             <h2>Give/Remove Access</h2>
             <?php if(isset($_GET['error'])) { ?>
